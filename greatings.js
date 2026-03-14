@@ -4,7 +4,7 @@ const welcomebtn = document.getElementById('Welcomebtn')
 const welcomeScreen = document.querySelector('.welcomescreen');
 const mainScreen = document.querySelector('.mainscreen');
 const galaxies = document.querySelectorAll('.welcomescreen img');
-
+const timetext1 = document.querySelector('.time');
 
 function updateUI() {
     const now = new Date();
@@ -21,6 +21,7 @@ function updateUI() {
 
    
     timetext.textContent = now.toLocaleTimeString();
+    timetext1.textContent = now.toLocaleTimeString();
 }
 
 
@@ -29,18 +30,3 @@ setInterval(updateUI, 1000);
 
 updateUI();
 
-welcomebtn.addEventListener('click', () =>{
-    welcomeScreen.style.display = 'none'
-});
-
-
-window.addEventListener('mousemove', (e) =>{
-    const x = e.clientX;
-    const y = e.clientY;
-    galaxies.forEach((img, index) => {
-        const speed = (index + 1) * 50;
-        const moveX = (x - window.innerWidth / 2) / speed;
-        const moveY = (y- window.innerHeight / 2) / speed;
-        img.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-});
