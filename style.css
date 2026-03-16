@@ -168,6 +168,7 @@ body{
     position: absolute;
     font-size: 80px;
     z-index: 1;
+    cursor: default;
     
     color: White;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -186,6 +187,9 @@ body{
     backdrop-filter: blur(10px);
     background: #796fc069;
     position: relative;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
     bottom: 510px;
     scale: 1;
     right: -480px;
@@ -203,6 +207,7 @@ body{
 }
 .puskmenu {
     /* Твои стили: ширина, фон, блюр и т.д. */
+    z-index: 10;
     opacity: 0;
     pointer-events: none; /* Чтобы по скрытому меню нельзя было кликнуть */
     transform: scale(0.8) translateY(20px);
@@ -229,6 +234,26 @@ body{
         opacity: 1;
     }
 }
+.animations{
+    animation: puskmenuanim 300ms ease-in-out forwards ;
+}
+
+.animationsClose{
+    animation: CloseAnim 300ms ease-in-out forwards ;
+}
+
+@keyframes CloseAnim {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    100% {
+       
+       
+         transform: scale(0.5) translateY(40px);
+        opacity: 0;
+    }
+}
 
 .power-offbtn{
     background-color: #13045e00;
@@ -248,4 +273,132 @@ body{
     height: 40px;
     display: flex;
     justify-content: space-around;
+}
+
+.blackbody{
+    background-color: black;
+}
+.power-onbtn{
+    background-color: #13045e00;
+    transition: 300ms ease-in-out;
+    border: 3px solid red ;
+    border-radius: 20px;
+      position: absolute;
+     top: 240px;
+     right: 600px;
+    opacity: 0;
+}
+
+.power-onbtn:hover{
+     background-color: #5f0303;
+    border-radius: 100px;
+    transform: scale(1.1);
+    box-shadow:  0px 0px 25px red;
+}
+
+.settingsbtn{
+    position: absolute;
+    background-color: #ffffff00;
+    border: none;
+    transition: 400ms ease-in-out;
+
+
+}
+.settingsbtn:hover{
+    transform: rotate(30deg);
+    cursor: pointer;
+}
+
+.settingsapp{
+    
+    border-top:  30px solid rgba(245, 245, 245, 0.413);
+    gap: 5px;
+    position: absolute; /* Обязательно */
+    top: 100px;         /* Начальная точка по вертикали */
+    left: 100px;        /* Начальная точка по горизонтали */
+    display: none;      /* По умолчанию скрыто */
+    
+    width: 600px;
+    height: 450px;
+    
+    z-index: 2;
+    background-color: #ffffff3b;
+    backdrop-filter: blur(15px);
+    border-radius: 5px;
+}
+.drag-handle {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: -30px; /* Сдвигаем вверх, чтобы он лег прямо на бордер */
+    left: 0;
+    width: 100%;
+    height: 30px;
+    cursor: move;
+    z-index: 10;
+    
+}
+.drag-handle p{
+    position: relative;
+    top: -15px;
+    cursor: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.closebtn{
+    z-index: 11;
+    border: none;
+    cursor: default;
+    background-color: #ffffff00;
+    transition: 200ms ease;
+}
+.closebtn:hover{
+    background-color: #9d03039a;
+}
+.AsideBtn{
+    border: none;
+    
+    border-radius: 10px;
+    background-color: #fdfbfb00;
+    backdrop-filter: blur(10px);
+    width: 150px;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 50px;
+    transition: 0.2s ease;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+    color: white;
+    font-size:20px ;
+
+}
+
+.AsideBtn:hover{
+    background-color: #fdfbfb14;
+    border-radius: 12px;
+}
+.settingsapp aside{
+    display: flex;
+    gap: 10px 10px;
+    flex-direction: column;
+}
+
+.mainsetingsarticle{
+    color: white;
+    margin-left: 20px;
+    opacity: 1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.mainsetingsarticle.active{
+    opacity: 0;
+    pointer-events: all;
+}
+.styleset{
+    color: white;
+    margin-left: 20px;
+    opacity: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+.styleset.active{
+    opacity: 1;
+    pointer-events: all;
 }
