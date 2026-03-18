@@ -45,12 +45,20 @@ turnoffbtn.addEventListener('click', () => {
     poweronbtn.style.opacity = '1'
 });
 
-const loadlench = () => (Math.floor(Math.random() * (9000 - 3000 + 1)) + 3000);
+let loadlench = Math.floor(Math.random() * (9000 - 3000 + 1)) + 3000;
 
-const loadlenchAnim =() => loadlench - 1000
+let loadlenchAnim = loadlench - 1000
+
 poweronbtn.addEventListener('click', () => {
     loading_screen.classList.add('active');
-    loading_screen.style.display = 'flex'
+      // 1. Показываем экран
+loading_screen.style.display = 'flex';
+
+// 2. Ищем полоску через document
+const hrBar = document.getElementById('loadscreenhr');
+
+// 3. Назначаем анимацию через бэктики (без точки с запятой внутри)
+hrBar.style.animation = `loadstik ${loadlench}ms ease-in forwards`;
      setTimeout(() =>{
        
         loading_screen.classList.remove('.active')
@@ -77,28 +85,44 @@ poweronbtn.addEventListener('click', () => {
     
 });
 
-restartbtn.addEventListener('click',() => {
+restartbtn.addEventListener('click', () => {
+    // 1. Генерируем НОВОЕ случайное время для этого рестарта
+    let currentLoad = Math.floor(Math.random() * (9000 - 3000 + 1)) + 3000;
+    let animOutStart = currentLoad - 600; // Начнем анимацию выхода чуть раньше финала
+
+    // 2. Включаем лоадер
+    loading_screen.style.display = 'flex';
     loading_screen.classList.add('active');
-    loading_screen.style.display = 'flex'
-      setTimeout(() =>{
-       
-        loading_screen.classList.remove('active')
-        loading_screen.style.display = 'none'
-        
-    }, loadlench);
-     setTimeout(() => {
-            loading_screen.classList.add('animationsClose')
-        }, loadlenchAnim);
-        
-        setTimeout(() => {
-           welcomeScreen.style.display = 'flex'
-    puskMenu.classList.remove('active'); 
-        }, 1000);
-
-        loading_screen.classList.remove('animationsClose')
     
-});
+    // 3. Запускаем полоску (используем бэктики)
+    const hrBar = document.getElementById('loadscreenhr');
+    hrBar.style.animation = 'none'; // Сброс старой анимации
+    hrBar.offsetHeight; // "Магия" для сброса (force reflow)
+    hrBar.style.animation = `loadstik ${currentLoad}ms ease-in forwards`;
 
+    // 4. Прячем меню пуск сразу, чтобы не торчало
+    puskMenu.classList.remove('active');
+
+    // 5. Таймер: запуск анимации исчезновения лоадера
+    setTimeout(() => {
+        loading_screen.classList.add('animationsClose');
+    }, animOutStart);
+
+    // 6. Таймер: ФИНАЛ рестарта
+    setTimeout(() => {
+        // Убираем лоадер и чистим классы
+        loading_screen.style.display = 'none';
+        loading_screen.classList.remove('active');
+        loading_screen.classList.remove('animationsClose');
+        
+        // Возвращаемся на экран приветствия
+        welcomeScreen.style.display = 'flex';
+        mainScreen.style.display = 'flex'; // Скрываем рабочий стол
+        topbar.style.display = 'flex';    // Скрываем топбар
+        
+        console.log(`Рестарт завершен за ${currentLoad / 1000} сек.`);
+    }, currentLoad);
+});
 setingsbtn.addEventListener('click', () => {
 
         puskMenu.classList.remove('active');
